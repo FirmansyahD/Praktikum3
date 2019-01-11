@@ -1,0 +1,92 @@
+Tugas 
+No 1
+1. Silakan jalankan service Apache dan MySQL di XAMPP dengan menekan tombol Start.
+2. Pada browser, silakan akses URL berikut: localhost/phpmyadmin
+3. Untuk membuat database, silakan klik New, masukkan nama database yang Anda inginkan, kemudian klik tombol Create.
+No 2
+4. Pilih database dengan mengklik nama database yang ada di panel sebelah 
+5. Pada bagian “Create table”  (berada disebelah bawah daftar tabel),  isikan nama tabel dan jumlah kolom yang ingin dibuat (jumlah kolom bisa juga ditambahkan nanti), kemudian klik tombol GO
+6. Isikan detail kolom sesuai yang diinginkan.
+No 3
+<?php
+session_start();
+if(isset($_SESSION["user"]))
+{
+    header("location:beranda.php");
+}
+include("function.php");
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Document</title>
+</head>
+<body>
+    <?php
+    if(isset($_GET["error"]))
+    {
+        if($_GET["error"]== "wrong"){
+                    echo'<h3>username dan password salah</h3>';
+        }
+    }
+        if(isset($_GET["notif"])){
+            if($_GET["notif"]){
+                echo"<h3> Berhasil Logout";            
+            }
+        }
+        if(isset($_POST["submit"])){
+            echo do_login($_POST["username"],$_POST["password"]);
+        }
+     ?>
+        <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+        username: <input type="text" name="username"><br>
+        Password: <input type="password"name="password"><br>
+        <input type="submit" name="submit" value="Sign in">
+        </form>
+        </body>
+</html>
+
+No 4
+<?php
+$host='localhost';
+$user='root';
+$pass='';
+$db='db_moklet';
+
+$connect=mysqli_connect($host,$user,$pass,$db);
+    if(!connect){
+        exit('koneksi gagal')
+    }
+}
+?>
+
+No 5
+<?php
+function do_login($username,$password){
+    if($username!= "admin "|| $_POST["password"]!="admin"){
+//cek kondisi jika kpndisi username ataa password salah maka program dieksekusi
+        header ("location:index.php?error=wrong");
+//mengarahkan langsung kembali ke index.php dan memunculkan pesan salah
+    }
+
+    if($username== "admin" && $_POST["password"]=="admin"){
+//cek kondisi jika username dan password benar program dikeksekusi
+        $_SESSION["user"]=$username;
+//session menyimpan variabel user yang berisi username
+        $_SESSION["password"]=$password;
+//session menyimpan variabel password yang berisi password
+        header ("location:beranda.php");
+//mengarahkan langsung kembali ke beranda.php
+    
+    }
+}function check_login(){
+    if(!isset($_SESSION["user"])){
+//cek kondisi jika kondisi $_SESSION["user"] belum terisi maka program dieksekusi
+        header("location:index.php");
+//mengarahkan langsung kembali ke index.php 
+    }
+}
+?>
+No6
+No7
+No8
